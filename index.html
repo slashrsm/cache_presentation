@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Drupal cache</title>
+  <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
+  
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href='http://fonts.googleapis.com/css?family=Londrina+Solid|Averia+Libre:400,700,400italic' rel='stylesheet' type='text/css'>
+  
+  <link rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/default.min.css">
+  <script src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+  <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+  <script type="text/javascript" src="js/jmpress.js/dist/jmpress.js"></script>
+</head>
+<body>
+  
+  <div id="jmpress">
+    <div id="start" class="step" data-z="200">
+      <h1>Cache in Drupal 7</h1>
+      
+      <div>Janez Urevc</div>
+      <div>[janez@|http://]janezurevc.name</div>
+      <div>@slashrsm</div>
+    </div>
+    <div id="what-is-cache" class="step" data-r="1000" data-phi="0" data-rotate-x="90" data-rotate-y="0">
+      <h2>What is cache?</h2>
+      <figure>
+        A, B, C => 
+        <img src="images/mathbord.gif" />
+         => result
+      </figure>
+      <div>The idea is to save the result and use it, when we have to calculate the same equation with the same variables again.</div>
+      <div class="step nested" data-y="500" data-x="-450" data-scale="0.5" data-rotate="20">
+        <h3>Use cases in web development?</h3>
+        <ul>
+          <li>Heavy database queries;</li>
+          <li>Output that is hard to render;</li>
+          <li>Complex calculations;</li>
+          <li>Things that need a lot of I/O;</li>
+          <li>Data, that was fetched from remote servers;</li>
+          <li>and many, many more...</li>
+        </ul>
+      </div>
+      <div id="drupal-example" class="step nested" data-y="650" data-scale="0.5">
+        <h3>Drupal example?</h3>
+        <div> <strong>Views render pipeline:</strong></div>
+        <br />
+        <dd>Get args => <br />Build query => <br />Execute query => <br />Get results => <br />Render results => HTML</dd>
+        <br />
+        <dd>Get args => Cache lookup => HTML</dd>
+      </div>
+      <div class="step nested" data-y="500" data-x="450" data-rotate="-20" data-scale="0.5">
+        <h3>Other usefull caches?</h3>
+        <ul>
+          <li><strong>PHP op-code cache:</strong> prevents PHP files from beeing compiled on every request (APC, xCache, ...)</li>
+          <li><strong>MySQL query cache:</strong> saves query results into RAM</li>
+        </ul>
+      </div>
+      <div id="cache-general-idea" class="step nested" data-y="-300"  data-scale="0.5">
+        Disk == slow<br />
+        RAM == fast<br />
+        <br /><br />
+        General idea is to store as much data as possible into RAM.
+      </div>
+    </div>
+    <div class="step" data-r="1000" data-phi="60" data-rotate-x="90" data-rotate-y="60">
+      <h2>Cache in Drupal 7</h2>
+      <ul>
+        <li><strong>Item:</strong> a single cache entry. It has a key and a value.</li>
+        <li><strong>Bin:</strong> a group of items that live together, "A bucket where we put our data".</li>
+        <li><strong>Back-end:</strong> technology used to saved data (MySQL, Memcached, APC, Redis, ...). Each bin can be saved to a different back-end.</li>
+      </ul>
+      <div id="cache-code-example" class="step nested" data-y="300"  data-scale="0.5">
+        <h3>Drupal cache for developers</h3>
+        <pre><code class="php"> 
+if ($cache = cache_get('my_cache_item', 'cache')) {
+  $data = $cache->data;
+}
+else {
+  // some heavy calculations...
+  
+  cache_set('my_cache_item', $data);
+}
+
+// Use $data
+        </code></pre>
+        
+        <div>More info: <a href="http://dgo.to/a/cache_set">http://dgo.to/a/cache_set</a></div>
+      </div>
+    </div>
+    <div class="step" data-r="1000" data-phi="120" data-rotate-x="90" data-rotate-y="120">
+      <h2>Cache back-ends</h2>
+      <ul>
+        <li>Infrastructure that stores cache items;</li>
+        <li>Totally pluggable;</li>
+        <li>Only one or more of them can be used at the same time;</li>
+      </ul>
+      <div class="step nested" data-y="450" data-x="-300" data-rotate="20"  data-scale="0.5">
+        <h3>Database (default)</h3>
+      </div>
+      <div class="step nested" data-y="500"  data-scale="0.5">
+        <h3>APC user cache</h3>
+      </div>
+      <div class="step nested" data-y="450" data-x="300" data-rotate="-20" data-scale="0.5">
+        <h3>Memcached</h3>
+      </div>
+      <div class="step nested" data-y="-450" data-x="-300" data-rotate="-20"  data-scale="0.5">
+        <h3>Redis</h3>
+      </div>
+      <div class="step nested" data-y="-500"  data-scale="0.5">
+        <h3>MongoDB</h3>
+      </div>
+      <div class="step nested" data-y="-400" data-x="300"  data-rotate="20" data-scale="0.5">
+        <h3>Configuration</h3>
+      </div>
+      
+    </div>
+    <div class="step" data-r="1000" data-phi="180" data-rotate-x="90" data-rotate-y="180">
+      <h2>Page & block cache</h2>
+      <ul>
+        <li>Core features;</li>
+        <li>Saves entire page's (block's) HTML into cache</li>
+        <li>Can save A LOT of server load (specially Page cache)</li>
+      </ul>
+      <div class="step nested" data-y="400" data-scale="0.5">
+        <img class="logo" src="images/varnish-logo.png" />
+        <h3>Varnish</h3>
+        <ul>
+          <li>Reverse proxy cache</li>
+          <li>Stands in front of web server and cached it's responses for anonymous users</li>
+          <li>Saves HTML in ram => HUGE savings</li>
+          <li>Basically it is an external page cache</li>
+          <li>Drupal integration: <a href="http://dgo.to/varnish">http://dgo.to/varnish</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="step" data-r="1000" data-phi="240" data-rotate-x="90" data-rotate-y="240">Slide 6</div>
+    <div class="step" data-r="1000" data-phi="300" data-rotate-x="90" data-rotate-y="300">Slide 7</div>
+    <div class="step" data-rotate-x="180" data-z="-200">Slide 8</div>
+  </div>
+  <!-- 
+  slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
+1000
+test_cache_set 123.33 ms
+test_cache_get 127.7 ms
+test_cache_clear_cid 78.8 ms
+test_cache_clear_wild 2036.59 ms
+10000
+test_cache_set 1632.45 ms
+test_cache_get 1586.06 ms
+test_cache_clear_cid 1066.06 ms
+test_cache_clear_wild 22243.16 ms
+100000
+test_cache_set 14404.2 ms
+test_cache_get 17599.29 ms
+test_cache_clear_cid 11564.56 ms
+test_cache_clear_wild 229934.98 ms
+slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
+1000
+test_cache_set 66.1 ms
+test_cache_get 72.56 ms
+test_cache_clear_cid 65.17 ms
+test_cache_clear_wild 68.23 ms
+10000
+test_cache_set 821.25 ms
+test_cache_get 741.99 ms
+test_cache_clear_cid 583.71 ms
+test_cache_clear_wild 861.62 ms
+100000
+test_cache_set 8984.97 ms
+test_cache_get 8633.85 ms
+test_cache_clear_cid 6901.2 ms
+test_cache_clear_wild 6503.87 ms
+slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
+1000
+test_cache_set 29.56 ms
+test_cache_get 31.66 ms
+test_cache_clear_cid 19.96 ms
+test_cache_clear_wild 903.51 ms
+10000
+test_cache_set 346.75 ms
+test_cache_get 374.97 ms
+test_cache_clear_cid 232.06 ms
+test_cache_clear_wild 11297.74 ms
+100000
+test_cache_set 3584.58 ms
+test_cache_get 3007.74 ms
+test_cache_clear_cid 2297.82 ms
+test_cache_clear_wild 108164.44 ms
+slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
+1000
+test_cache_set 128.23 ms
+test_cache_get 139.4 ms
+test_cache_clear_cid 81.78 ms
+test_cache_clear_wild 71.22 ms
+10000
+test_cache_set 939.19 ms
+test_cache_get 1513.82 ms
+test_cache_clear_cid 602.42 ms
+test_cache_clear_wild 594.16 ms
+100000
+test_cache_set 7718.81 ms
+test_cache_get 15664.97 ms
+test_cache_clear_cid 7252.28 ms
+test_cache_clear_wild 5653.2 ms
+slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
+1000
+test_cache_set 1362.33 ms
+test_cache_get 281.95 ms
+test_cache_clear_cid 571.6 ms
+test_cache_clear_wild 793.03 ms
+10000
+test_cache_set 15394.88 ms
+test_cache_get 3370.98 ms
+test_cache_clear_cid 6644.54 ms
+test_cache_clear_wild 9897.6 ms
+100000
+test_cache_set 155215.4 ms
+test_cache_get 33460.3 ms
+test_cache_clear_cid 74771.06 ms
+test_cache_clear_wild 103843.64 ms
+slashrsm@vol:/var/www/drupal/sites/default$ 
+  
+   -->
+  <script type="text/javascript">
+    $(function() {
+      $("#jmpress").jmpress();
+    });
+  </script>
+  <script>
+  hljs.tabReplace = '  ';
+  hljs.initHighlightingOnLoad();
+</script>
+  
+</body>
+</html>
