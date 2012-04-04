@@ -12,6 +12,7 @@
   <script src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
   <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
   <script type="text/javascript" src="js/jmpress.js/dist/jmpress.js"></script>
+  <script src="js/highcharts/js/highcharts.js"></script>
 </head>
 <body>
   
@@ -135,6 +136,7 @@ else {
             <li>You cannot clear it with drush</li>
           </ul>
         </section>
+        <div style="clear:both;">More info: <a href="http://drupal.org/project/apc">drupal.org/project/apc</a></div>.
       </div>
       <div class="step nested" data-y="450" data-x="500" data-rotate="-20" data-scale="0.5">
         <img class="logo" src="images/memcached-logo.jpg" />
@@ -155,6 +157,7 @@ else {
             <li>You have to compile/install PHP extension</li>
           </ul>
         </section>
+        <div style="clear:both;">More info: <a href="http://drupal.org/project/memcache">drupal.org/project/memcache</a></div>.
       </div>
       <div class="step nested" data-y="-450" data-x="-500" data-rotate="-20"  data-scale="0.5">
         <img class="logo" src="images/redis-300dpi.png" />
@@ -175,6 +178,7 @@ else {
             <li>A bit more complex to administer than Memcached</li>
           </ul>
         </section>
+        <div style="clear:both;">More info: <a href="http://drupal.org/project/redis">drupal.org/project/redis</a></div>.
       </div>
       <div class="step nested" data-y="-500"  data-scale="0.5">
         <img class="logo" src="images/logo-mongodb-onwhite.png" />
@@ -194,6 +198,7 @@ else {
             <li>You have to compile/install PHP extension</li>
           </ul>
         </section>
+        <div style="clear:both;">More info: <a href="http://drupal.org/project/mongodb">drupal.org/project/mongodb</a></div>.
       </div>
       <div id="configuration" class="step nested" data-y="-400" data-x="500"  data-rotate="20" data-scale="0.5">
         <h3>Configuration (settings.php)</h3>
@@ -228,7 +233,79 @@ $conf['cache_cache_menu'] = 'DrupalMongoDBCache';
     </div>
     <div class="step" data-r="1500" data-phi="180" data-rotate="180"><!--data-rotate-x="90" data-rotate-y="180">  --> 
       <h2>Performance overview</h2>
-      FAst and slow.
+      <div id="performance-graph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+      <script type="text/javascript">
+
+(function($){ // encapsulate jQuery
+
+var chart;
+$(document).ready(function() {
+  chart = new Highcharts.Chart({
+    chart: {
+      renderTo: 'performance-graph',
+      type: 'column'
+    },
+    title: {
+        text: 'Cache backends performance overview'
+    },
+    title: {
+        text: 'Time to process 100.000 entries'
+    },
+    xAxis: {
+      categories: [
+        'DB',
+        'Memcache',
+        'APC',
+        'Redis',
+        'MongoDB',
+      ]
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Time (ms)'
+      }
+    },
+    legend: {
+      layout: 'vertical',
+      backgroundColor: '#FFFFFF',
+      align: 'left',
+      verticalAlign: 'top',
+      x: 550,
+      y: 70,
+      floating: true,
+      shadow: true
+    },
+    tooltip: {
+      formatter: function() {
+        return ''+
+          this.x +': '+ this.y +' mm';
+      }
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0
+      }
+    },
+      series: [{
+      name: 'Set',
+      data: [145203.96, 11506.57, 3104.11, 9212.9, 6507.27]
+
+    }, {
+      name: 'Get',
+      data: [30483.92, 13673.83, 2520.78, 7913.76, 18347.13]
+
+    }, {
+      name: 'Delete',
+      data: [67954.27, 8080.73, 2061.98, 6498.13, 6019.53]
+
+    }]
+  });
+});
+
+})(jQuery);
+</script>
     </div>
     <div class="step" data-r="1500" data-phi="240" data-rotate="180"><!--  data-rotate-x="90" data-rotate-y="240">--> 
       <h2>Page & block cache</h2>
@@ -251,104 +328,22 @@ $conf['cache_cache_menu'] = 'DrupalMongoDBCache';
     </div>
     <div class="step" data-r="1500" data-phi="300" data-rotate="300"><!-- data-rotate-x="90" data-rotate-y="300"> --> 
       <h2>Views and panels cache.</h2>
-
+      <ul>
+        <li>Cache implementations on top of core's cache framework</li>
+        <li>Time based => expires after configured amount of time</li>
+        <li><strong>Views: </strong> query results and HTML output of a view.</li>
+        <li><strong>Panels: </strong> HTML output of a content pane or entire panel; custom granulation settings.</li>
+      </ul>
     </div>
-    <div class="step" data-rotate-x="180" data-z="-200">Slide 8</div>
+    <div class="step" data-y="600">
+      <figure>
+        <img src="images/question.jpg" /><br />
+        Hvala!<br />
+        janez@janezurevc.name<br />
+        @slashrsm
+      </figure>
+    </div>
   </div>
-  <!-- 
-  
-  DB
-  slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
-1000
-test_cache_set 123.33 ms
-test_cache_get 127.7 ms
-test_cache_clear_cid 78.8 ms
-test_cache_clear_wild 2036.59 ms
-10000
-test_cache_set 1632.45 ms
-test_cache_get 1586.06 ms
-test_cache_clear_cid 1066.06 ms
-test_cache_clear_wild 22243.16 ms
-100000
-test_cache_set 14404.2 ms
-test_cache_get 17599.29 ms
-test_cache_clear_cid 11564.56 ms
-test_cache_clear_wild 229934.98 ms
-
-Memcached
-slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
-1000
-test_cache_set 66.1 ms
-test_cache_get 72.56 ms
-test_cache_clear_cid 65.17 ms
-test_cache_clear_wild 68.23 ms
-10000
-test_cache_set 821.25 ms
-test_cache_get 741.99 ms
-test_cache_clear_cid 583.71 ms
-test_cache_clear_wild 861.62 ms
-100000
-test_cache_set 8984.97 ms
-test_cache_get 8633.85 ms
-test_cache_clear_cid 6901.2 ms
-test_cache_clear_wild 6503.87 ms
-
-Redis
-slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
-1000
-test_cache_set 29.56 ms
-test_cache_get 31.66 ms
-test_cache_clear_cid 19.96 ms
-test_cache_clear_wild 903.51 ms
-10000
-test_cache_set 346.75 ms
-test_cache_get 374.97 ms
-test_cache_clear_cid 232.06 ms
-test_cache_clear_wild 11297.74 ms
-100000
-test_cache_set 3584.58 ms
-test_cache_get 3007.74 ms
-test_cache_clear_cid 2297.82 ms
-test_cache_clear_wild 108164.44 ms
-
-APC
-slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
-1000
-test_cache_set 128.23 ms
-test_cache_get 139.4 ms
-test_cache_clear_cid 81.78 ms
-test_cache_clear_wild 71.22 ms
-10000
-test_cache_set 939.19 ms
-test_cache_get 1513.82 ms
-test_cache_clear_cid 602.42 ms
-test_cache_clear_wild 594.16 ms
-100000
-test_cache_set 7718.81 ms
-test_cache_get 15664.97 ms
-test_cache_clear_cid 7252.28 ms
-test_cache_clear_wild 5653.2 ms
-
-MongoDB
-slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
-1000
-test_cache_set 1362.33 ms
-test_cache_get 281.95 ms
-test_cache_clear_cid 571.6 ms
-test_cache_clear_wild 793.03 ms
-10000
-test_cache_set 15394.88 ms
-test_cache_get 3370.98 ms
-test_cache_clear_cid 6644.54 ms
-test_cache_clear_wild 9897.6 ms
-100000
-test_cache_set 155215.4 ms
-test_cache_get 33460.3 ms
-test_cache_clear_cid 74771.06 ms
-test_cache_clear_wild 103843.64 ms
-slashrsm@vol:/var/www/drupal/sites/default$ 
-  
-   -->
   <script type="text/javascript">
     $(function() {
       $("#jmpress").jmpress();

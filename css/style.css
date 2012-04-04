@@ -57,6 +57,7 @@ img.logo {
 	-ms-transition:     opacity 1s;
 	-o-transition:      opacity 1s;
 	transition:         opacity 1s;
+	
 }
 
 /* fade out inactive slides */
