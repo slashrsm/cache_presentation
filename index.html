@@ -23,7 +23,7 @@
       <div>[janez@|http://]janezurevc.name</div>
       <div>@slashrsm</div>
     </div>
-    <div id="what-is-cache" class="step" data-r="1000" data-phi="0" data-rotate-x="90" data-rotate-y="0">
+    <div id="what-is-cache" class="step" data-r="1500" data-phi="0" data-rotate="0" ><!-- data-rotate-x="90" data-rotate-y="0" -->
       <h2>What is cache?</h2>
       <figure>
         A, B, C => 
@@ -64,7 +64,7 @@
         General idea is to store as much data as possible into RAM.
       </div>
     </div>
-    <div class="step" data-r="1000" data-phi="60" data-rotate-x="90" data-rotate-y="60">
+    <div class="step" data-r="1500" data-phi="60" data-rotate="60" ><!-- data-rotate-x="90" data-rotate-y="60"> -->
       <h2>Cache in Drupal 7</h2>
       <ul>
         <li><strong>Item:</strong> a single cache entry. It has a key and a value.</li>
@@ -89,34 +89,148 @@ else {
         <div>More info: <a href="http://dgo.to/a/cache_set">http://dgo.to/a/cache_set</a></div>
       </div>
     </div>
-    <div class="step" data-r="1000" data-phi="120" data-rotate-x="90" data-rotate-y="120">
+    <div class="step" data-r="1500" data-phi="120" data-rotate="120" > <!--  data-rotate-x="90" data-rotate-y="120" -->
       <h2>Cache back-ends</h2>
       <ul>
         <li>Infrastructure that stores cache items;</li>
         <li>Totally pluggable;</li>
         <li>Only one or more of them can be used at the same time;</li>
       </ul>
-      <div class="step nested" data-y="450" data-x="-300" data-rotate="20"  data-scale="0.5">
+      <div class="step nested" data-y="450" data-x="-500" data-rotate="20"  data-scale="0.5">
+        <img class="logo" src="images/mysql-big.gif" style="width: 15%" />
         <h3>Database (default)</h3>
+        <section class="pros">
+          <ul>
+            <li>Easy - configured by default</li>
+            <li>Does not add any complexity to the server stack</li>
+            <li>Can work totally fine for most of smaller sites</li>
+            <li>Query cache helps</li>
+            <li>Permanent</li>
+          </ul>
+        </section>
+        <section class="cons">
+          <ul>
+            <li>SLOW!</li>
+            <li>Relys on DB, which is already under high pressure on high-traffic sites</li>
+            <li>Uses disk (except query cache for reads)</li>
+          </ul>
+        </section>
       </div>
       <div class="step nested" data-y="500"  data-scale="0.5">
+        <img class="logo" src="images/php-main.jpeg" style="width: 15%" />
         <h3>APC user cache</h3>
+        <section class="pros">
+          <ul>
+            <li>Easy to configure</li>
+            <li>Fast as hell!!!</li>
+            <li>No need to add complexity to server stack (assuming you already use APC)</li>
+            <li>Uses RAM</li>
+          </ul>
+        </section>
+        <section class="cons">
+          <ul>
+            <li>Non-permanent</li>
+            <li>Non centralized - each server will have it's own cache</li>
+            <li>Syncronzation problems, ...</li>
+            <li>You cannot clear it with drush</li>
+          </ul>
+        </section>
       </div>
-      <div class="step nested" data-y="450" data-x="300" data-rotate="-20" data-scale="0.5">
+      <div class="step nested" data-y="450" data-x="500" data-rotate="-20" data-scale="0.5">
+        <img class="logo" src="images/memcached-logo.jpg" />
         <h3>Memcached</h3>
+        <section class="pros">
+          <ul>
+            <li>Fast!</li>
+            <li>Uses RAM</li>
+            <li>Easy to administer</li>
+            <li>Easy to set memory pools (distribution)</li>
+            <li>All web servers will use same cache</li>
+          </ul>
+        </section>
+        <section class="cons">
+          <ul>
+            <li>Non-permanent</li>
+            <li>Adds another level of complexity to your server stack</li>
+            <li>You have to compile/install PHP extension</li>
+          </ul>
+        </section>
       </div>
-      <div class="step nested" data-y="-450" data-x="-300" data-rotate="-20"  data-scale="0.5">
+      <div class="step nested" data-y="-450" data-x="-500" data-rotate="-20"  data-scale="0.5">
+        <img class="logo" src="images/redis-300dpi.png" />
         <h3>Redis</h3>
+        <section class="pros">
+          <ul>
+            <li>Fast!!</li>
+            <li>Uses RAM/Disk combination</li>
+            <li>All web servers will use same cache</li>
+            <li>Permanent</li>
+            <li>You can use PHP library if you're not able to install PHP extension</li>
+          </ul>
+        </section>
+        <section class="cons">
+          <ul>
+            <li>Delayed writes to disk (configurable)</li>
+            <li>Adds another level of complexity to your server stack</li>
+            <li>A bit more complex to administer than Memcached</li>
+          </ul>
+        </section>
       </div>
       <div class="step nested" data-y="-500"  data-scale="0.5">
+        <img class="logo" src="images/logo-mongodb-onwhite.png" />
         <h3>MongoDB</h3>
+        <section class="pros">
+          <ul>
+            <li>Fast!</li>
+            <li>All web servers will use same cache</li>
+            <li>Permanent</li>
+            <li>Can be used to store also data (nodes, fields, ...)</li>
+          </ul>
+        </section>
+        <section class="cons">
+          <ul>
+            <li>Adds another level of complexity to your server stack</li>
+            <li>Probbably the most complext to administer</li>
+            <li>You have to compile/install PHP extension</li>
+          </ul>
+        </section>
       </div>
-      <div class="step nested" data-y="-400" data-x="300"  data-rotate="20" data-scale="0.5">
-        <h3>Configuration</h3>
+      <div id="configuration" class="step nested" data-y="-400" data-x="500"  data-rotate="20" data-scale="0.5">
+        <h3>Configuration (settings.php)</h3>
+        <pre><code class="php"> 
+# Memcache
+include_once('./includes/cache.inc');
+include_once('./sites/all/modules/memcache/memcache.inc');
+$conf['memcache_key_prefix'] = 'drupal';
+
+# Redis
+$conf['cache_backends'][] = 'sites/all/modules/redis/redis.autoload.inc';
+$conf['redis_client_interface'] = 'PhpRedis';  //Library or extension
+
+# APC
+$conf['cache_backends'][] = 'sites/all/modules/apc/drupal_apc_cache.inc';
+
+# Mongo
+$conf['cache_backends'][] = 'sites/all/modules/mongodb/mongodb_cache/mongodb_cache.inc';
+
+
+$conf['cache_default_class'] = 'MemCacheDrupal';
+//$conf['cache_default_class'] = 'Redis_Cache';
+//$conf['cache_default_class'] = 'DrupalAPCCache';
+//$conf['cache_default_class'] = 'DrupalMongoDBCache';
+
+$conf['cache_cache_form'] = 'Redis_Cache';
+$conf['cache_cache_menu'] = 'DrupalMongoDBCache';
+// etc....
+        </code></pre>
       </div>
       
     </div>
-    <div class="step" data-r="1000" data-phi="180" data-rotate-x="90" data-rotate-y="180">
+    <div class="step" data-r="1500" data-phi="180" data-rotate="180"><!--data-rotate-x="90" data-rotate-y="180">  --> 
+      <h2>Performance overview</h2>
+      FAst and slow.
+    </div>
+    <div class="step" data-r="1500" data-phi="240" data-rotate="180"><!--  data-rotate-x="90" data-rotate-y="240">--> 
       <h2>Page & block cache</h2>
       <ul>
         <li>Core features;</li>
@@ -135,11 +249,15 @@ else {
         </ul>
       </div>
     </div>
-    <div class="step" data-r="1000" data-phi="240" data-rotate-x="90" data-rotate-y="240">Slide 6</div>
-    <div class="step" data-r="1000" data-phi="300" data-rotate-x="90" data-rotate-y="300">Slide 7</div>
+    <div class="step" data-r="1500" data-phi="300" data-rotate="300"><!-- data-rotate-x="90" data-rotate-y="300"> --> 
+      <h2>Views and panels cache.</h2>
+
+    </div>
     <div class="step" data-rotate-x="180" data-z="-200">Slide 8</div>
   </div>
   <!-- 
+  
+  DB
   slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
 1000
 test_cache_set 123.33 ms
@@ -156,6 +274,8 @@ test_cache_set 14404.2 ms
 test_cache_get 17599.29 ms
 test_cache_clear_cid 11564.56 ms
 test_cache_clear_wild 229934.98 ms
+
+Memcached
 slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
 1000
 test_cache_set 66.1 ms
@@ -172,6 +292,8 @@ test_cache_set 8984.97 ms
 test_cache_get 8633.85 ms
 test_cache_clear_cid 6901.2 ms
 test_cache_clear_wild 6503.87 ms
+
+Redis
 slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
 1000
 test_cache_set 29.56 ms
@@ -188,6 +310,8 @@ test_cache_set 3584.58 ms
 test_cache_get 3007.74 ms
 test_cache_clear_cid 2297.82 ms
 test_cache_clear_wild 108164.44 ms
+
+APC
 slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
 1000
 test_cache_set 128.23 ms
@@ -204,6 +328,8 @@ test_cache_set 7718.81 ms
 test_cache_get 15664.97 ms
 test_cache_clear_cid 7252.28 ms
 test_cache_clear_wild 5653.2 ms
+
+MongoDB
 slashrsm@vol:/var/www/drupal/sites/default$ drush scr bench
 1000
 test_cache_set 1362.33 ms

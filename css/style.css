@@ -36,7 +36,7 @@ img.logo {
 /** STEP STYLES **/
 .step:not(#container) {
 	width: 900px;
-  height: 400px;
+  height: auto;//400px;
 	font-size: 2em;
 	min-height: 500px;
 
@@ -90,7 +90,29 @@ img.logo {
   text-align: center;
 }
 
-.step:not(#container) .step#cache-code-example pre {
+.step:not(#container) .step pre {
   font-size: 0.8em;
 }
 
+.step .pros,
+.step .cons {
+  width: 45%;
+  height: 400px;
+  float: left;
+  font-size: 0.7em;
+  padding: 0.5em;
+}
+
+.step .pros {
+  background: rgba(202, 255, 195, 0.3) url(../images/plus.png) center center scroll no-repeat;
+  color: rgba(8, 142, 5, 1);
+}
+
+.step .cons {
+  background: rgba(255, 141, 165, 0.3) url(../images/minus.png) center center scroll no-repeat;
+  color: rgba(142, 5, 34, 1);
+}
+
+.step:not(#container) .step#configuration pre {
+  font-size: 0.6em;
+}
