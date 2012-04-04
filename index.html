@@ -31,7 +31,7 @@
         <img src="images/mathbord.gif" />
          => result
       </figure>
-      <div>The idea is to save the result and use it, when we have to calculate the same equation with the same variables again.</div>
+      <div>The idea is to save the result and use it, when we have to calculate the same problem with the same input data again.</div>
       <div class="step nested" data-y="500" data-x="-450" data-scale="0.5" data-rotate="20">
         <h3>Use cases in web development?</h3>
         <ul>
@@ -67,12 +67,13 @@
     </div>
     <div class="step" data-r="1500" data-phi="60" data-rotate="60" ><!-- data-rotate-x="90" data-rotate-y="60"> -->
       <h2>Cache in Drupal 7</h2>
+      <img src="images/cache_tables.png" style="float: right;" />
       <ul>
-        <li><strong>Item:</strong> a single cache entry. It has a key and a value.</li>
-        <li><strong>Bin:</strong> a group of items that live together, "A bucket where we put our data".</li>
-        <li><strong>Back-end:</strong> technology used to saved data (MySQL, Memcached, APC, Redis, ...). Each bin can be saved to a different back-end.</li>
+        <li><strong>Item:</strong> A single cache entry. It has a key and a value.</li>
+        <li><strong>Bin:</strong> A group of items that live together; "A bucket where we put our data".</li>
+        <li><strong>Back-end:</strong> Technology used to saved data (MySQL, Memcached, APC, Redis, ...). Each bin can be saved to a different back-end.</li>
       </ul>
-      <div id="cache-code-example" class="step nested" data-y="300"  data-scale="0.5">
+      <div id="cache-code-example" class="step nested" data-y="400"  data-scale="0.5">
         <h3>Drupal cache for developers</h3>
         <pre><code class="php"> 
 if ($cache = cache_get('my_cache_item', 'cache')) {
@@ -93,9 +94,9 @@ else {
     <div class="step" data-r="1500" data-phi="120" data-rotate="120" > <!--  data-rotate-x="90" data-rotate-y="120" -->
       <h2>Cache back-ends</h2>
       <ul>
-        <li>Infrastructure that stores cache items;</li>
-        <li>Totally pluggable;</li>
-        <li>Only one or more of them can be used at the same time;</li>
+        <li>Infrastructure that handles storage of cache items.</li>
+        <li>Drupal core provides totally pluggable framework.</li>
+        <li>Only one or more of them can be used at the same time.</li>
       </ul>
       <div class="step nested" data-y="450" data-x="-500" data-rotate="20"  data-scale="0.5">
         <img class="logo" src="images/mysql-big.gif" style="width: 15%" />
@@ -112,7 +113,7 @@ else {
         <section class="cons">
           <ul>
             <li>SLOW!</li>
-            <li>Relys on DB, which is already under high pressure on high-traffic sites</li>
+            <li>Relys on DB, which is already under pressure on high-traffic sites</li>
             <li>Uses disk (except query cache for reads)</li>
           </ul>
         </section>
@@ -124,7 +125,7 @@ else {
           <ul>
             <li>Easy to configure</li>
             <li>Fast as hell!!!</li>
-            <li>No need to add complexity to server stack (assuming you already use APC)</li>
+            <li>No additional complexity on server stack (assuming you already use APC)</li>
             <li>Uses RAM</li>
           </ul>
         </section>
@@ -132,11 +133,11 @@ else {
           <ul>
             <li>Non-permanent</li>
             <li>Non centralized - each server will have it's own cache</li>
-            <li>Syncronzation problems, ...</li>
+            <li>Syncronzation problems</li>
             <li>You cannot clear it with drush</li>
           </ul>
         </section>
-        <div style="clear:both;">More info: <a href="http://drupal.org/project/apc">drupal.org/project/apc</a></div>.
+        <div style="clear:both;">More info: <a href="http://drupal.org/project/apc">drupal.org/project/apc</a>.</div>
       </div>
       <div class="step nested" data-y="450" data-x="500" data-rotate="-20" data-scale="0.5">
         <img class="logo" src="images/memcached-logo.jpg" />
@@ -147,7 +148,7 @@ else {
             <li>Uses RAM</li>
             <li>Easy to administer</li>
             <li>Easy to set memory pools (distribution)</li>
-            <li>All web servers will use same cache</li>
+            <li>All web servers will use same cache - easy to synchronize</li>
           </ul>
         </section>
         <section class="cons">
@@ -157,7 +158,7 @@ else {
             <li>You have to compile/install PHP extension</li>
           </ul>
         </section>
-        <div style="clear:both;">More info: <a href="http://drupal.org/project/memcache">drupal.org/project/memcache</a></div>.
+        <div style="clear:both;">More info: <a href="http://drupal.org/project/memcache">drupal.org/project/memcache</a>.</div>
       </div>
       <div class="step nested" data-y="-450" data-x="-500" data-rotate="-20"  data-scale="0.5">
         <img class="logo" src="images/redis-300dpi.png" />
@@ -176,9 +177,10 @@ else {
             <li>Delayed writes to disk (configurable)</li>
             <li>Adds another level of complexity to your server stack</li>
             <li>A bit more complex to administer than Memcached</li>
+            <li>Sooner or later will use disk</li>
           </ul>
         </section>
-        <div style="clear:both;">More info: <a href="http://drupal.org/project/redis">drupal.org/project/redis</a></div>.
+        <div style="clear:both;">More info: <a href="http://drupal.org/project/redis">drupal.org/project/redis</a>.</div>
       </div>
       <div class="step nested" data-y="-500"  data-scale="0.5">
         <img class="logo" src="images/logo-mongodb-onwhite.png" />
@@ -188,7 +190,7 @@ else {
             <li>Fast!</li>
             <li>All web servers will use same cache</li>
             <li>Permanent</li>
-            <li>Can be used to store also data (nodes, fields, ...)</li>
+            <li>Can be used to store data (nodes, fields, ...)</li>
           </ul>
         </section>
         <section class="cons">
@@ -198,7 +200,7 @@ else {
             <li>You have to compile/install PHP extension</li>
           </ul>
         </section>
-        <div style="clear:both;">More info: <a href="http://drupal.org/project/mongodb">drupal.org/project/mongodb</a></div>.
+        <div style="clear:both;">More info: <a href="http://drupal.org/project/mongodb">drupal.org/project/mongodb</a>.</div>
       </div>
       <div id="configuration" class="step nested" data-y="-400" data-x="500"  data-rotate="20" data-scale="0.5">
         <h3>Configuration (settings.php)</h3>
@@ -310,7 +312,7 @@ $(document).ready(function() {
     <div class="step" data-r="1500" data-phi="240" data-rotate="180"><!--  data-rotate-x="90" data-rotate-y="240">--> 
       <h2>Page & block cache</h2>
       <ul>
-        <li>Core features;</li>
+        <li>Core features</li>
         <li>Saves entire page's (block's) HTML into cache</li>
         <li>Can save A LOT of server load (specially Page cache)</li>
       </ul>
@@ -319,26 +321,28 @@ $(document).ready(function() {
         <h3>Varnish</h3>
         <ul>
           <li>Reverse proxy cache</li>
-          <li>Stands in front of web server and cached it's responses for anonymous users</li>
-          <li>Saves HTML in ram => HUGE savings</li>
+          <li>Stands in front of web server and caches it's responses for anonymous users</li>
+          <li>Saves HTML/CSS/JS/images in ram => HUGE savings</li>
           <li>Basically it is an external page cache</li>
-          <li>Drupal integration: <a href="http://dgo.to/varnish">http://dgo.to/varnish</a></li>
+          <li>Drupal integration: <a href="http://dgo.to/varnish">drupal.org/project/varnish</a></li>
         </ul>
       </div>
     </div>
     <div class="step" data-r="1500" data-phi="300" data-rotate="300"><!-- data-rotate-x="90" data-rotate-y="300"> --> 
       <h2>Views and panels cache.</h2>
+      <img src="images/cache_views.png" style="float: right" />
       <ul>
         <li>Cache implementations on top of core's cache framework</li>
         <li>Time based => expires after configured amount of time</li>
         <li><strong>Views: </strong> query results and HTML output of a view.</li>
+      <img src="images/cache_panels.png" style="float: right" />
         <li><strong>Panels: </strong> HTML output of a content pane or entire panel; custom granulation settings.</li>
       </ul>
     </div>
     <div class="step" data-y="600">
       <figure>
         <img src="images/question.jpg" /><br />
-        Hvala!<br />
+        Thank you!!<br />
         janez@janezurevc.name<br />
         @slashrsm
       </figure>
