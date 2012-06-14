@@ -68,11 +68,26 @@
     <div class="step" data-r="1500" data-phi="60" data-rotate="60" ><!-- data-rotate-x="90" data-rotate-y="60"> -->
       <h2>Cache in Drupal 7</h2>
       <img src="images/cache_tables.png" style="float: right;" />
-      <ul>
-        <li><strong>Item:</strong> A single cache entry. It has a key and a value.</li>
+      <!-- <ul>
+        <li><strong>Item:</strong> </li>
         <li><strong>Bin:</strong> A group of items that live together; "A bucket where we put our data".</li>
         <li><strong>Back-end:</strong> Technology used to saved data (MySQL, Memcached, APC, Redis, ...). Each bin can be saved to a different back-end.</li>
-      </ul>
+      </ul> -->
+      <div class="step nested" data-scale="0.5" data-y="0" data-x="-200">
+          <img src="images/document.jpg" style="float: right; width: 15%" />
+        <h3>Cache item</h3>
+          A single cache entry. It has a key and a value.
+      </div>
+      <div class="step nested" data-scale="0.5" data-y="100" data-x="-200">
+          <img src="images/bin.jpg" style="float: right; width: 15%" />
+        <h3>Cache bin</h3>
+          A group of items that live together; "A bucket where we put our data".
+      </div>
+      <div class="step nested" data-scale="0.5" data-y="200" data-x="-200">
+          <img src="images/storage.gif" style="float: right; width: 40%" />
+        <h3>Cache backend</h3>
+          Technology used to saved data (MySQL, Memcached, APC, Redis, ...). Each bin can be saved to a different back-end.
+      </div>
       <div id="cache-code-example" class="step nested" data-y="400"  data-scale="0.5">
         <h3>Drupal cache for developers</h3>
         <pre><code class="php"> 
@@ -316,7 +331,7 @@ $(document).ready(function() {
         <li>Saves entire page's (block's) HTML into cache</li>
         <li>Can save A LOT of server load (specially Page cache)</li>
       </ul>
-      <div class="step nested" data-y="400" data-scale="0.5">
+      <!-- <div class="step nested" data-y="400" data-scale="0.5">
         <img class="logo" src="images/varnish-logo.png" />
         <h3>Varnish</h3>
         <ul>
@@ -326,7 +341,7 @@ $(document).ready(function() {
           <li>Basically it is an external page cache</li>
           <li>Drupal integration: <a href="http://dgo.to/varnish">drupal.org/project/varnish</a></li>
         </ul>
-      </div>
+      </div> -->
     </div>
     <div class="step" data-r="1500" data-phi="300" data-rotate="300"><!-- data-rotate-x="90" data-rotate-y="300"> --> 
       <h2>Views and panels cache.</h2>
@@ -339,6 +354,24 @@ $(document).ready(function() {
         <li><strong>Panels: </strong> HTML output of a content pane or entire panel; custom granulation settings.</li>
       </ul>
     </div>
+    <div id="praksa" class="step" data-exclude="1" data-next="#query-log" data-r="1200" data-phi="290" data-rotate="300" data-scale="0.2">
+     How to optimize/cache your page?
+      <div id="query-log"  data-next="#profiler"  class="step nested"  data-exclude="1" data-y="50" data-x="-1000">
+        <h3>Enable query log</h3>
+      </div>
+      <div id="profiler" data-prev="#query-log" data-next="#cache-parts"  class="step nested"  data-exclude="1" data-y="50" data-x="0">
+        <h3>Enable profiler</h3>
+      
+      </div>
+      <div id="cache-parts"   data-prev="#profiler"   data-next="#cache-page-varnish"   class="step nested" data-exclude="1" data-y="50" data-x="1000">
+        <h3>Cache parts of page (blocks, panes)</h3>
+      
+      </div>
+      <div id="cache-page-varnish" data-prev="#cache-parts"  class="step nested"  data-exclude="1" data-y="50" data-x="2000">
+        <h3>Page cache (or Varnish)</h3>
+      
+      </div>    
+    </div>
     <div class="step" data-y="600">
       <figure>
         <img src="images/question.jpg" /><br />
@@ -350,7 +383,14 @@ $(document).ready(function() {
   </div>
   <script type="text/javascript">
     $(function() {
-      $("#jmpress").jmpress();
+      $("#jmpress").jmpress({
+          keyboard: {
+              keys: {
+                27: ['select', '#start'],
+                49: ['select', '#praksa'],
+              }
+            }
+          });
     });
   </script>
   <script>
