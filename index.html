@@ -355,28 +355,28 @@ $(document).ready(function() {
         <li><strong>Panels: </strong> HTML output of a content pane or entire panel; custom granulation settings.</li>
       </ul>
     </div>
-    <div id="praksa" class="step" data-exclude="1" data-next="#query-log" data-r="1000" data-phi="290" data-rotate="300" data-scale="0.2">
+    <div id="praksa" class="step" data-next="#query-log" data-r="1000" data-phi="290" data-rotate="300" data-scale="0.2">
      How to optimize/cache your page?
-      <div id="query-log"  data-next="#profiler"  class="step nested"  data-exclude="1" data-y="50" data-x="-1000">
+      <div id="query-log"  data-next="#profiler"  class="step nested" data-y="50" data-x="-1000">
         <h3>Enable query log</h3>
       <img src="images/uc-qlog-sett.png" style="float: left; width: 40%;" />
       <img src="images/uc-qlog-res.png" style="float: right;  width: 50%;" />
       </div>
-      <div id="profiler" data-prev="#query-log" data-next="#cache-parts"  class="step nested"  data-exclude="1" data-y="50" data-x="0">
+      <div id="profiler" data-prev="#query-log" data-next="#cache-parts"  class="step nested" data-y="50" data-x="0">
         <h3>Enable profiler</h3>
       <img src="images/uc-prof-set.png" style="float: left; width: 30%;" />
       <img src="images/uc-prof-out.png" style="float: right;  width: 70%;" />
       <img src="images/uc-prof-link.png" style="clear: both;  width: 20%;" />
       
       </div>
-      <div id="cache-parts"   data-prev="#profiler"   data-next="#cache-page-varnish"   class="step nested" data-exclude="1" data-y="50" data-x="1000">
+      <div id="cache-parts"   data-prev="#profiler"   data-next="#cache-page-varnish"   class="step nested" data-y="50" data-x="1000">
         <h3>Cache parts of page (blocks, panes)</h3>
       <img src="images/page-cache.png" style="float: left" /> 
       <img src="images/cache_panels.png" style="float: right" />
       <img src="images/cache_views.png" style="float: right" />
       
       </div>
-      <div id="cache-page-varnish" data-prev="#cache-parts"  class="step nested"  data-exclude="1" data-y="50" data-x="2000">
+      <div id="cache-page-varnish" data-prev="#cache-parts"  class="step nested" data-y="50" data-x="2000">
         <h3>Page cache (or Varnish)</h3>
       <img src="images/page-cache.png" style="float: left" />
         <img src="images/varnish-logo.png" style="margin: 20px; width: 40%;"/>
