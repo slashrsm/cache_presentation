@@ -1,6 +1,3 @@
-[submodule "jmpress.js"]
-	path = jmpress.js
-	url = https://github.com/shama/jmpress.js.git
 [submodule "js/jmpress.js"]
 	path = js/jmpress.js
-	url = https://github.com/shama/jmpress.js.git
+	url = git://github.com/shama/jmpress.js.git
